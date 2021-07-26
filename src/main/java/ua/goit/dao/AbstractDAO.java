@@ -158,9 +158,4 @@ public abstract class AbstractDAO<T> implements DataAccessObject<T> {
         }
         return entities;
     }
-
-    protected <V> boolean areNotEquals(List<V> infoInDB, List<V> newInfo) {
-        return !newInfo.equals(infoInDB) && !infoInDB.containsAll(newInfo) && !newInfo.isEmpty();
-    }
-
 }

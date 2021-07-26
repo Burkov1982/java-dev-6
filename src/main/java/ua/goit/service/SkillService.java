@@ -1,76 +1,88 @@
 package ua.goit.service;
 
+import com.zaxxer.hikari.HikariDataSource;
+import ua.goit.config.DatabaseConnectionManager;
+import ua.goit.dao.SkillDAO;
 import ua.goit.dao.model.Skill;
 import ua.goit.dto.SkillDTO;
 import ua.goit.view.ViewMessages;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 public class SkillService implements Service<SkillDTO>{
+    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
+    private final SkillDAO skillDAO = new SkillDAO(dataSource);
     private final ViewMessages viewMessages = new ViewMessages();
 
     @Override
     public String getAll(){
-        return viewMessages.joinListSkills(skillDAO.getAll());
+        try {
+            return viewMessages.joinListElements(skillDAO.getAll());
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
     public String getAll(SkillDTO entity) {
-        return null;
+        try {
+            return viewMessages.joinListElements(skillDAO.getAll());
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void create(SkillDTO skillDTO) throws SQLException {
+    public String create(SkillDTO skillDTO) {
         Skill skill = toSkill(skillDTO);
-        skillDAO.create(skill);
+        try {
+            return skillDAO.create(skill).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void delete(SkillDTO skillDTO) throws SQLException {
-        skillDAO.delete(toSkill(skillDTO));
-    }
-
-    @Override
-    public String getById(int id) throws SQLException {
-        return skillDAO.findById(id).toString();
-    }
-
-    @Override
-    public void update(SkillDTO skillDTO) throws SQLException {
+    public String delete(SkillDTO skillDTO) {
         Skill skill = toSkill(skillDTO);
-        skillDAO.update(skill);
+        try {
+            skillDAO.delete(skill.getSkill_id());
+            return "Your request has been processed successfully";
+        } catch (SQLException e){
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void update(SkillDTO entity, SkillDTO newEnity) throws SQLException {
+    public String getById(int id) {
+        try {
+            return skillDAO.findById(id).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
+    }
 
+    @Override
+    public String update(SkillDTO skillDTO) {
+        Skill skill = toSkill(skillDTO);
+        try {
+            return skillDAO.update(skill).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
+    }
+
+    @Override
+    public String update(SkillDTO entity, SkillDTO newEntity) {
+        Skill skill = toSkill(newEntity);
+        try {
+            return skillDAO.update(skill).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     public static Skill toSkill(SkillDTO skillDTO){
         return new Skill(skillDTO.getSkill_id(), skillDTO.getBranch(), skillDTO.getStage());
     }
-
-    public static SkillDTO fromSkill (Skill skill){
-        return new SkillDTO(skill.getSkill_id(), skill.getBranch(), skill.getStage());
-    }
-
-    public static LinkedList<Skill> toSkill (ResultSet resultSet) {
-        try{
-            LinkedList<Skill> skills  = new LinkedList<>();
-            while (resultSet.next()){
-                Skill skill = new Skill();
-                skill.setSkill_id(resultSet.getInt("skill_id"));
-                skill.setBranch(resultSet.getString("branch"));
-                skill.setStage(resultSet.getString("stage"));
-                skills.addLast(skill);
-            }
-            return skills;
-        } catch (SQLException throwables){
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
 }

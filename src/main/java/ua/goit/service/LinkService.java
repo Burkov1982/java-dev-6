@@ -1,5 +1,7 @@
 package ua.goit.service;
 
+import com.zaxxer.hikari.HikariDataSource;
+import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.LinksDAO;
 import ua.goit.dao.model.Link;
 import ua.goit.dto.LinkDTO;
@@ -10,12 +12,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class LinkService implements Service<LinkDTO> {
-    private LinksDAO linksDAO;
     private final ViewMessages viewMessages = new ViewMessages();
-
-    public LinkService() {
-    }
-
+    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
+    private LinksDAO linksDAO = new LinksDAO(dataSource);
 
     @Override
     public String getAll() {
@@ -23,11 +22,13 @@ public class LinkService implements Service<LinkDTO> {
     }
 
     @Override
-    public String getAll(LinkDTO entity) throws SQLException {
+    public String getAll(LinkDTO entity) {
         Link link = toLink(entity);
-        ResultSet resultSet = linksDAO.getAll(link);
-        LinkedList<Link> links = toLink(resultSet, entity.getTable());
-        return viewMessages.joinListLinks(links);
+        try {
+            return viewMessages.joinListElements(linksDAO.getAllLinks(link));
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
@@ -36,23 +37,42 @@ public class LinkService implements Service<LinkDTO> {
     }
 
     @Override
-    public void create(LinkDTO entity) throws SQLException {
-        linksDAO.create(toLink(entity));
+    public String create(LinkDTO entity) {
+        Link link = toLink(entity);
+        try {
+            linksDAO.createLink(link);
+            return "Your request has been processed successfully";
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void delete(LinkDTO entity) throws SQLException {
-        linksDAO.delete(toLink(entity));
+    public String delete(LinkDTO entity) {
+        Link link = toLink(entity);
+        try {
+            linksDAO.deleteLink(link);
+            return "Your request has been processed successfully";
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+
+        }
     }
 
-    public void update(LinkDTO linkDTO, LinkDTO newEntity) throws SQLException {
+    public String update(LinkDTO linkDTO, LinkDTO newEntity) {
         Link newLink = toLink(newEntity);
         Link oldLink = toLink(linkDTO);
-        linksDAO.update(oldLink, newLink);
+        try {
+            linksDAO.updateLink(oldLink, newLink);
+            return "Your request has been processed successfully";
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void update(LinkDTO entity) {
+    public String update(LinkDTO entity) {
+        return "An error has occurred, please try to enter data again";
     }
 
     public Link toLink(LinkDTO linkDTO){

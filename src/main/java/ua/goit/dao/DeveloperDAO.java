@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DeveloperDAO extends AbstractDAO<Developer> {
-    protected DeveloperDAO(HikariDataSource dataSource) {
+    public DeveloperDAO(HikariDataSource dataSource) {
         super(dataSource);
     }
 

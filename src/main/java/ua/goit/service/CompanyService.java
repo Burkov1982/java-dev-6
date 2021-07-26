@@ -1,75 +1,87 @@
 package ua.goit.service;
 
+import com.zaxxer.hikari.HikariDataSource;
+import ua.goit.config.DatabaseConnectionManager;
+import ua.goit.dao.CompanyDAO;
 import ua.goit.dao.model.Company;
 import ua.goit.dto.CompanyDTO;
 import ua.goit.view.ViewMessages;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 public class CompanyService implements Service<CompanyDTO> {
     private final ViewMessages viewMessages = new ViewMessages();
-
+    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
+    CompanyDAO companyDAO = new CompanyDAO(dataSource);
     @Override
-    public void create(CompanyDTO companyDTO) throws SQLException {
+    public String create(CompanyDTO companyDTO){
         Company company = toCompany(companyDTO);
-        companyDAO.create(company);
+        try {
+            return companyDAO.create(company).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void delete(CompanyDTO companyDTO) throws SQLException {
-        companyDAO.delete(toCompany(companyDTO));
-    }
-
-    @Override
-    public void update(CompanyDTO companyDTO) throws SQLException {
+    public String delete(CompanyDTO companyDTO) {
         Company company = toCompany(companyDTO);
-        companyDAO.update(company);
+        try {
+            companyDAO.delete(company.getCompany_id());
+            return "Your request has been processed successfully";
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void update(CompanyDTO entity, CompanyDTO newEnity) throws SQLException {
-
+    public String update(CompanyDTO companyDTO) {
+        Company company = toCompany(companyDTO);
+        try {
+            return companyDAO.update(company).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public String getById(int id) throws SQLException {
-        return companyDAO.findById(id).toString();
+    public String update(CompanyDTO entity, CompanyDTO newEntity) {
+        Company company = toCompany(newEntity);
+        try {
+            return companyDAO.update(company).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public String getAll(){
-        return viewMessages.joinListCompanies(companyDAO.getAll());
+    public String getById(int id) {
+        try {
+            return companyDAO.findById(id).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
+    }
+
+    @Override
+    public String getAll() {
+        try {
+            return viewMessages.joinListElements(companyDAO.getAll());
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
     public String getAll(CompanyDTO entity) {
-        return null;
+        try {
+            return viewMessages.joinListElements(companyDAO.getAll());
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     public static Company toCompany(CompanyDTO companyDTO){
         return new Company(companyDTO.getCompany_id(), companyDTO.getCompany_name(), companyDTO.getHeadquarters());
-    }
-
-    public static LinkedList<Company> toCompany(ResultSet resultSet){
-        try{
-            LinkedList<Company> companies = new LinkedList<>();
-            while (resultSet.next()){
-                Company company = new Company();
-                company.setCompany_id(resultSet.getInt("company_id"));
-                company.setCompany_name(resultSet.getString("company_name"));
-                company.setHeadquarters(resultSet.getString("headquarters"));
-                companies.addLast(company);
-            }
-            return companies;
-        } catch (SQLException throwables){
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public static CompanyDTO fromCompany(Company company){
-        return new CompanyDTO(company.getCompany_id(), company.getCompany_name(), company.getHeadquarters());
     }
 }

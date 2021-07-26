@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProjectDAO extends AbstractDAO<Project> {
-    protected ProjectDAO(HikariDataSource dataSource) {
+    public ProjectDAO(HikariDataSource dataSource) {
         super(dataSource);
     }
 

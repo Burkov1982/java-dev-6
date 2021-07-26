@@ -13,7 +13,7 @@ public class LinksDAO extends AbstractDAO<Link>{
 
     private final LinkService linkService = new LinkService();
 
-    protected LinksDAO(HikariDataSource dataSource) {
+    public LinksDAO(HikariDataSource dataSource) {
         super(dataSource);
     }
 

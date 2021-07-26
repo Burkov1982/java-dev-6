@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SkillDAO extends AbstractDAO<Skill> {
-    protected SkillDAO(HikariDataSource dataSource) {
+    public SkillDAO(HikariDataSource dataSource) {
         super(dataSource);
     }
 

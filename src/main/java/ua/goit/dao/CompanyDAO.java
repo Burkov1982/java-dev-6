@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class CompanyDAO extends AbstractDAO<Company> {
 
-    protected CompanyDAO(HikariDataSource dataSource) {
+    public CompanyDAO(HikariDataSource dataSource) {
         super(dataSource);
     }
 

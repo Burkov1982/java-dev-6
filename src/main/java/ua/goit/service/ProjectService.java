@@ -1,79 +1,90 @@
 package ua.goit.service;
 
+import com.zaxxer.hikari.HikariDataSource;
+import ua.goit.config.DatabaseConnectionManager;
+import ua.goit.dao.ProjectDAO;
 import ua.goit.dao.model.Project;
 import ua.goit.dto.ProjectDTO;
 import ua.goit.view.ViewMessages;
 
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 public class ProjectService implements Service<ProjectDTO>{
     private final ViewMessages viewMessages = new ViewMessages();
+    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
+    private final ProjectDAO projectDAO = new ProjectDAO(dataSource);
 
     @Override
-    public void create(ProjectDTO projectDTO) throws SQLException{
+    public String create(ProjectDTO projectDTO){
         Project project = toProject(projectDTO);
-        projectDAO.create(project);
+        try {
+            return projectDAO.create(project).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void update(ProjectDTO projectDTO) throws SQLException {
+    public String update(ProjectDTO projectDTO) {
         Project project = toProject(projectDTO);
-        projectDAO.update(project);
+        try {
+            return projectDAO.update(project).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void update(ProjectDTO entity, ProjectDTO newEnity) throws SQLException {
-
+    public String update(ProjectDTO entity, ProjectDTO newEnity) {
+        Project project = toProject(newEnity);
+        try {
+            return projectDAO.update(project).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public String getById(int id) throws SQLException {
-        return projectDAO.findById(id).toString();
+    public String getById(int id) {
+        try {
+            return projectDAO.findById(id).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
     public String getAll(){
-        return viewMessages.joinListProjects(projectDAO.getAll());
+        try {
+            return viewMessages.joinListElements(projectDAO.getAll());
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
     public String getAll(ProjectDTO entity) {
-        return null;
+        try {
+            return viewMessages.joinListElements(projectDAO.getAll());
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void delete(ProjectDTO projectDTO) throws SQLException {
-        projectDAO.delete(toProject(projectDTO));
-    }
-
-    public LinkedList<Project> getAllInList(){
-        return projectDAO.getAll();
+    public String delete(ProjectDTO projectDTO) {
+        Project project = toProject(projectDTO);
+        try {
+            projectDAO.delete(project.getProject_id());
+            return "Your request has been processed successfully";
+        } catch (SQLException e){
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     public static Project toProject(ProjectDTO projectDTO){
         return new Project(projectDTO.getProject_id(), projectDTO.getProject_name(), projectDTO.getProject_description(),
                 projectDTO.getCost(), (Date) projectDTO.getStart_date());
-    }
-
-    public static LinkedList <Project> toProject (ResultSet resultSet){
-        try{
-            LinkedList<Project> projects  = new LinkedList<>();
-            while (resultSet.next()){
-                Project project = new Project();
-                project.setProject_id(resultSet.getInt("project_id"));
-                project.setProject_name(resultSet.getString("project_name"));
-                project.setProject_description(resultSet.getString("project_description"));
-                project.setCost(resultSet.getInt("cost"));
-                project.setStart_date(resultSet.getDate("start_date"));
-                projects.addLast(project);
-            }
-            return projects;
-        } catch (SQLException throwables){
-            throwables.printStackTrace();
-        }
-        return null;
     }
 }

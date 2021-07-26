@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class AbstractDAO<T> implements DataAccessObject<T> {
     private final HikariDataSource dataSource;
 
-    protected AbstractDAO(HikariDataSource dataSource) {
+    public AbstractDAO(HikariDataSource dataSource) {
         this.dataSource = dataSource;
     }
 

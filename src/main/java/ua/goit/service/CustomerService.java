@@ -1,36 +1,58 @@
 package ua.goit.service;
 
+import com.zaxxer.hikari.HikariDataSource;
+import ua.goit.config.DatabaseConnectionManager;
+import ua.goit.dao.CustomerDAO;
 import ua.goit.dao.model.Customer;
 import ua.goit.dto.CustomerDTO;
 import ua.goit.view.ViewMessages;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 public class CustomerService implements Service<CustomerDTO>{
     private final ViewMessages viewMessages = new ViewMessages();
+    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
+    private final CustomerDAO customerDAO = new CustomerDAO(dataSource);
 
     @Override
-    public void create(CustomerDTO customerDTO) throws SQLException {
+    public String create(CustomerDTO customerDTO) {
         Customer customer = toCustomer(customerDTO);
-        customerDAO.create(customer);
+        try {
+            return customerDAO.create(customer).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void delete(CustomerDTO customerDTO) throws SQLException {
-        customerDAO.delete(toCustomer(customerDTO));
-    }
-
-    @Override
-    public void update(CustomerDTO customerDTO) throws SQLException {
+    public String delete(CustomerDTO customerDTO) {
         Customer customer = toCustomer(customerDTO);
-        customerDAO.update(customer);
+        try {
+            customerDAO.delete(customer.getCustomer_id());
+            return "Your request has been processed successfully";
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
-    public void update(CustomerDTO entity, CustomerDTO newEnity) throws SQLException {
+    public String update(CustomerDTO customerDTO) {
+        Customer customer = toCustomer(customerDTO);
+        try {
+            return customerDAO.update(customer).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
+    }
 
+    @Override
+    public String update(CustomerDTO entity, CustomerDTO newEntity) {
+        Customer customer = toCustomer(newEntity);
+        try {
+            return customerDAO.update(customer).toString();
+        } catch (SQLException e) {
+            return "An error has occurred, please try to enter data again";
+        }
     }
 
     @Override
@@ -39,13 +61,13 @@ public class CustomerService implements Service<CustomerDTO>{
     }
 
     @Override
-    public String getAll(){
-        return viewMessages.joinListCustomers(customerDAO.getAll());
+    public String getAll() throws SQLException {
+        return viewMessages.joinListElements(customerDAO.getAll());
     }
 
     @Override
-    public String getAll(CustomerDTO entity) {
-        return null;
+    public String getAll(CustomerDTO entity) throws SQLException {
+        return viewMessages.joinListElements(customerDAO.getAll());
     }
 
     public static Customer toCustomer(CustomerDTO customerDTO){
@@ -54,21 +76,5 @@ public class CustomerService implements Service<CustomerDTO>{
 
     public static CustomerDTO fromCustomer(Customer customer){
         return new CustomerDTO(customer.getCustomer_id(), customer.getCustomer_name());
-    }
-
-    public static LinkedList<Customer> toCustomer(ResultSet resultSet){
-        try{
-            LinkedList<Customer> customers = new LinkedList<>();
-            while (resultSet.next()){
-                Customer customer = new Customer();
-                customer.setCustomer_id(resultSet.getInt("customer_id"));
-                customer.setCustomer_name(resultSet.getString("customer_name"));
-                customers.addLast(customer);
-            }
-            return customers;
-        } catch (SQLException throwables){
-            throwables.printStackTrace();
-        }
-        return null;
     }
 }

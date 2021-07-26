@@ -5,14 +5,14 @@ import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.DeveloperDAO;
 import ua.goit.dao.model.Developer;
 import ua.goit.dto.DeveloperDTO;
-import ua.goit.view.ViewMessages;
+import ua.goit.view.Util;
 
 import java.sql.SQLException;
 
 public class DeveloperService implements Service<DeveloperDTO>{
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     private final DeveloperDAO developerDAO = new DeveloperDAO(dataSource);
-    private final ViewMessages viewMessages = new ViewMessages();
+    private final Util util = new Util();
 
     @Override
     public String create(DeveloperDTO developerDTO){
@@ -67,7 +67,7 @@ public class DeveloperService implements Service<DeveloperDTO>{
     @Override
     public String getAll(){
         try {
-            return viewMessages.joinListElements(developerDAO.getAll());
+            return util.joinListElements(developerDAO.getAll());
         } catch (SQLException e) {
             return "An error has occurred, please try to enter data again";
         }
@@ -76,7 +76,7 @@ public class DeveloperService implements Service<DeveloperDTO>{
     @Override
     public String getAll(DeveloperDTO entity) {
         try {
-            return viewMessages.joinListElements(developerDAO.getAll());
+            return util.joinListElements(developerDAO.getAll());
         } catch (SQLException e) {
             return "An error has occurred, please try to enter data again";
         }

@@ -5,12 +5,12 @@ import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.CustomerDAO;
 import ua.goit.dao.model.Customer;
 import ua.goit.dto.CustomerDTO;
-import ua.goit.view.ViewMessages;
+import ua.goit.view.Util;
 
 import java.sql.SQLException;
 
 public class CustomerService implements Service<CustomerDTO>{
-    private final ViewMessages viewMessages = new ViewMessages();
+    private final Util util = new Util();
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     private final CustomerDAO customerDAO = new CustomerDAO(dataSource);
 
@@ -62,12 +62,12 @@ public class CustomerService implements Service<CustomerDTO>{
 
     @Override
     public String getAll() throws SQLException {
-        return viewMessages.joinListElements(customerDAO.getAll());
+        return util.joinListElements(customerDAO.getAll());
     }
 
     @Override
     public String getAll(CustomerDTO entity) throws SQLException {
-        return viewMessages.joinListElements(customerDAO.getAll());
+        return util.joinListElements(customerDAO.getAll());
     }
 
     public static Customer toCustomer(CustomerDTO customerDTO){

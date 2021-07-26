@@ -5,13 +5,13 @@ import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.ProjectDAO;
 import ua.goit.dao.model.Project;
 import ua.goit.dto.ProjectDTO;
-import ua.goit.view.ViewMessages;
+import ua.goit.view.Util;
 
 import java.sql.Date;
 import java.sql.SQLException;
 
 public class ProjectService implements Service<ProjectDTO>{
-    private final ViewMessages viewMessages = new ViewMessages();
+    private final Util util = new Util();
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     private final ProjectDAO projectDAO = new ProjectDAO(dataSource);
 
@@ -57,7 +57,7 @@ public class ProjectService implements Service<ProjectDTO>{
     @Override
     public String getAll(){
         try {
-            return viewMessages.joinListElements(projectDAO.getAll());
+            return util.joinListElements(projectDAO.getAll());
         } catch (SQLException e) {
             return "An error has occurred, please try to enter data again";
         }
@@ -66,7 +66,7 @@ public class ProjectService implements Service<ProjectDTO>{
     @Override
     public String getAll(ProjectDTO entity) {
         try {
-            return viewMessages.joinListElements(projectDAO.getAll());
+            return util.joinListElements(projectDAO.getAll());
         } catch (SQLException e) {
             return "An error has occurred, please try to enter data again";
         }

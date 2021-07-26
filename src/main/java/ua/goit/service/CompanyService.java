@@ -5,12 +5,12 @@ import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.CompanyDAO;
 import ua.goit.dao.model.Company;
 import ua.goit.dto.CompanyDTO;
-import ua.goit.view.ViewMessages;
+import ua.goit.view.Util;
 
 import java.sql.SQLException;
 
 public class CompanyService implements Service<CompanyDTO> {
-    private final ViewMessages viewMessages = new ViewMessages();
+    private final Util util = new Util();
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     CompanyDAO companyDAO = new CompanyDAO(dataSource);
     @Override
@@ -66,7 +66,7 @@ public class CompanyService implements Service<CompanyDTO> {
     @Override
     public String getAll() {
         try {
-            return viewMessages.joinListElements(companyDAO.getAll());
+            return util.joinListElements(companyDAO.getAll());
         } catch (SQLException e) {
             return "An error has occurred, please try to enter data again";
         }
@@ -75,7 +75,7 @@ public class CompanyService implements Service<CompanyDTO> {
     @Override
     public String getAll(CompanyDTO entity) {
         try {
-            return viewMessages.joinListElements(companyDAO.getAll());
+            return util.joinListElements(companyDAO.getAll());
         } catch (SQLException e) {
             return "An error has occurred, please try to enter data again";
         }

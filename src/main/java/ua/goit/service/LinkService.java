@@ -5,14 +5,14 @@ import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.LinksDAO;
 import ua.goit.dao.model.Link;
 import ua.goit.dto.LinkDTO;
-import ua.goit.view.ViewMessages;
+import ua.goit.view.Util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class LinkService implements Service<LinkDTO> {
-    private final ViewMessages viewMessages = new ViewMessages();
+    private final Util util = new Util();
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     private LinksDAO linksDAO = new LinksDAO(dataSource);
 
@@ -25,7 +25,7 @@ public class LinkService implements Service<LinkDTO> {
     public String getAll(LinkDTO entity) {
         Link link = toLink(entity);
         try {
-            return viewMessages.joinListElements(linksDAO.getAllLinks(link));
+            return util.joinListElements(linksDAO.getAllLinks(link));
         } catch (SQLException e) {
             return "An error has occurred, please try to enter data again";
         }

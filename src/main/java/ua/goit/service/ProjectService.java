@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class ProjectService implements Service<ProjectDTO>{
     private final Util util = new Util();
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
-    private final ProjectDAO projectDAO = new ProjectDAO(dataSource);
+    private final ProjectDAO projectDAO = new ProjectDAO();
 
     @Override
     public String create(ProjectDTO projectDTO){

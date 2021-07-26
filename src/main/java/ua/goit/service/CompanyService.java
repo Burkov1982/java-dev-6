@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class CompanyService implements Service<CompanyDTO> {
     private final Util util = new Util();
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
-    CompanyDAO companyDAO = new CompanyDAO(dataSource);
+    CompanyDAO companyDAO = new CompanyDAO();
     @Override
     public String create(CompanyDTO companyDTO){
         Company company = toCompany(companyDTO);

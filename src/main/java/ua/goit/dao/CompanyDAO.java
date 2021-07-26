@@ -10,10 +10,6 @@ import java.sql.SQLException;
 
 public class CompanyDAO extends AbstractDAO<Company> {
 
-    public CompanyDAO(HikariDataSource dataSource) {
-        super(dataSource);
-    }
-
     @Override
     protected String getCreateQuery() {
         return "INSERT INTO companies (company_name, headquarters) VALUES (?, ?)";

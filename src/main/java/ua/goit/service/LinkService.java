@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class LinkService implements Service<LinkDTO> {
     private final Util util = new Util();
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
-    private LinksDAO linksDAO = new LinksDAO(dataSource);
+    private LinksDAO linksDAO = new LinksDAO();
 
     @Override
     public String getAll() {

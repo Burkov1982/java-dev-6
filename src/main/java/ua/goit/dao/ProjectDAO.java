@@ -10,10 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProjectDAO extends AbstractDAO<Project> {
-    public ProjectDAO(HikariDataSource dataSource) {
-        super(dataSource);
-    }
-
     @Override
     protected String getCreateQuery() {
         return "INSERT INTO projects (project_name, project_description, cost, start_date) VALUES (?, ?, ?, ?)";

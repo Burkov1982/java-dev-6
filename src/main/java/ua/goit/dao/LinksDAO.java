@@ -13,10 +13,6 @@ public class LinksDAO extends AbstractDAO<Link>{
 
     private final LinkService linkService = new LinkService();
 
-    public LinksDAO(HikariDataSource dataSource) {
-        super(dataSource);
-    }
-
     @Override
     protected String getCreateQuery() {
         return "INSERT INTO %s (%s) VALUES (%s)";

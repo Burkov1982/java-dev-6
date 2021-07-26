@@ -12,8 +12,8 @@ public class PropertiesLoader {
     }
 
     public void loadPropertiesFile(String fileName) {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
-            properties.load(is);
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName)) {
+            properties.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }

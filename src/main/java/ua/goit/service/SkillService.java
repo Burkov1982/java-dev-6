@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class SkillService implements Service<SkillDTO>{
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
-    private final SkillDAO skillDAO = new SkillDAO(dataSource);
+    private final SkillDAO skillDAO = new SkillDAO();
     private final Util util = new Util();
 
     @Override

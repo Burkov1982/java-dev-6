@@ -9,10 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DeveloperDAO extends AbstractDAO<Developer> {
-    public DeveloperDAO(HikariDataSource dataSource) {
-        super(dataSource);
-    }
-
     @Override
     protected String getCreateQuery() {
         return "INSERT INTO developers (first_name, last_name, gender, salary) VALUES (?, ?, ?, ?)";

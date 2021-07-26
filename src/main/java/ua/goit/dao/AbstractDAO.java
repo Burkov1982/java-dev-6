@@ -1,6 +1,7 @@
 package ua.goit.dao;
 
 import com.zaxxer.hikari.HikariDataSource;
+import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.model.Link;
 import ua.goit.service.LinkService;
 
@@ -9,11 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDAO<T> implements DataAccessObject<T> {
-    private final HikariDataSource dataSource;
-
-    public AbstractDAO(HikariDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
 
     protected HikariDataSource getConnectionManager() {
         return dataSource;

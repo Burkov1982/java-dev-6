@@ -9,10 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SkillDAO extends AbstractDAO<Skill> {
-    public SkillDAO(HikariDataSource dataSource) {
-        super(dataSource);
-    }
-
     @Override
     protected String getCreateQuery() {
         return "INSERT INTO skills (branch, stage) VALUES (?, ?)";

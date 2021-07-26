@@ -1,7 +1,5 @@
 package ua.goit.service;
 
-import com.zaxxer.hikari.HikariDataSource;
-import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.DeveloperDAO;
 import ua.goit.dao.model.Developer;
 import ua.goit.dto.DeveloperDTO;
@@ -10,10 +8,8 @@ import ua.goit.view.Util;
 import java.sql.SQLException;
 
 public class DeveloperService implements Service<DeveloperDTO>{
-    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
-    private final DeveloperDAO developerDAO = new DeveloperDAO(dataSource);
+    private final DeveloperDAO developerDAO = new DeveloperDAO();
     private final Util util = new Util();
-
     @Override
     public String create(DeveloperDTO developerDTO){
         Developer developer = toDeveloper(developerDTO);

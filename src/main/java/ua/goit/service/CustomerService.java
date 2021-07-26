@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class CustomerService implements Service<CustomerDTO>{
     private final Util util = new Util();
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
-    private final CustomerDAO customerDAO = new CustomerDAO(dataSource);
+    private final CustomerDAO customerDAO = new CustomerDAO();
 
     @Override
     public String create(CustomerDTO customerDTO) {

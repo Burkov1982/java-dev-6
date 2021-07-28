@@ -18,7 +18,14 @@
 </div>
 
 <div class="w3-container">
-
+		<p>List of projects</p>
+        <c:forEach items="${projects}" var="proj">
+            Project id: ${proj.project_id}<br>
+            Project name: ${proj.project_name}<br>
+            Project description: ${proj.project_description}<br>
+            Project cost: ${proj.cost}<br>
+            Project start date: ${proj.start_date}<br><br>
+        </c:forEach>
 </div>
 
 </div>

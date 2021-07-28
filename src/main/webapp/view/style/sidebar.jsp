@@ -14,23 +14,30 @@
   </div>
 
   <div class="w3-dropdown-hover">
-    <button class="w3-button">Read <i class="fa fa-caret-down"></i></button>
+    <button class="w3-button">Read All <i class="fa fa-caret-down"></i></button>
     <div class="w3-dropdown-content w3-bar-block">
       <a href="/developers" class="w3-bar-item w3-button">All Developers</a>
-      <a href="/developerById" class="w3-bar-item w3-button">Developer by ID</a>
       <a href="/linksCustomers" class="w3-bar-item w3-button">All Customers-Companies Links</a>
       <a href="/linksDeveloper" class="w3-bar-item w3-button">All Developer-Skills Links</a>
       <a href="/linksProject" class="w3-bar-item w3-button">All Project-Developers Links</a>
       <a href="/projects" class="w3-bar-item w3-button">All Projects</a>
-      <a href="/projectById" class="w3-bar-item w3-button">Project By ID</a>
       <a href="/customers" class="w3-bar-item w3-button">All Customers</a>
-      <a href="/customerById" class="w3-bar-item w3-button">Customer by ID</a>
       <a href="/companies" class="w3-bar-item w3-button">All Companies</a>
-      <a href="/companyById" class="w3-bar-item w3-button">Company by ID</a>
       <a href="/skills" class="w3-bar-item w3-button">All Skills</a>
+    </div>
+  </div>
+
+  <div class="w3-dropdown-hover">
+    <button class="w3-button">Read by ID <i class="fa fa-caret-down"></i></button>
+    <div class="w3-dropdown-content w3-bar-block">
+      <a href="/developerById" class="w3-bar-item w3-button">Developer by ID</a>
+      <a href="/projectById" class="w3-bar-item w3-button">Project By ID</a>
+      <a href="/customerById" class="w3-bar-item w3-button">Customer by ID</a>
+      <a href="/companyById" class="w3-bar-item w3-button">Company by ID</a>
       <a href="/skillById" class="w3-bar-item w3-button">Skill by ID</a>
     </div>
   </div>
+
 
   <div class="w3-dropdown-hover">
     <button class="w3-button">Update <i class="fa fa-caret-down"></i></button>

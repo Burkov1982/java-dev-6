@@ -3,7 +3,6 @@ package ua.goit.service;
 import ua.goit.dao.ProjectDAO;
 import ua.goit.dao.model.Project;
 import ua.goit.dto.ProjectDTO;
-import ua.goit.view.Util;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import static ua.goit.service.Converter.fromProject;
 import static ua.goit.service.Converter.toProject;
 
 public class ProjectService implements Service<ProjectDTO>{
-    private final Util util = new Util();
     private final ProjectDAO projectDAO = new ProjectDAO();
 
     @Override

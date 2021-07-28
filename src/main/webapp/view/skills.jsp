@@ -18,7 +18,12 @@
 </div>
 
 <div class="w3-container">
-
+		<p>List of skills</p>
+        <c:forEach items="${skills}" var="skill">
+            Skill id: ${skill.skill_id}<br>
+            Skill branch: ${skill.branch}<br>
+            Skill stage: ${skill.stage}<br><br>
+        </c:forEach>
 </div>
 
 </div>

@@ -66,13 +66,19 @@ public class CustomerService implements Service<CustomerDTO>{
     }
 
     @Override
-    public List<CustomerDTO> getAll() throws SQLException {
-        List<Customer> customers = customerDAO.getAll();
-        List<CustomerDTO> customersDTO = new ArrayList<>();
-        for (Customer customer:customers) {
-            customersDTO.add(fromCustomer(customer));
+    public List<CustomerDTO> getAll() {
+        List<Customer> customers = null;
+        try {
+            customers = customerDAO.getAll();
+            List<CustomerDTO> customersDTO = new ArrayList<>();
+            for (Customer customer:customers) {
+                customersDTO.add(fromCustomer(customer));
+            }
+            return customersDTO;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return customersDTO;
+        return null;
     }
 
     @Override

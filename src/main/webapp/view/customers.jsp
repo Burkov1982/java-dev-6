@@ -18,7 +18,11 @@
 </div>
 
 <div class="w3-container">
-
+		<p>List of customers</p>
+        <c:forEach items="${customers}" var="customer">
+            Customer id: ${customer.customer_id}<br>
+            Customer name: ${customer.customer_name}<br><br>
+        </c:forEach>
 </div>
 
 </div>

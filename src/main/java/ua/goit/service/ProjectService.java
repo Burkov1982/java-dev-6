@@ -1,18 +1,19 @@
 package ua.goit.service;
 
-import com.zaxxer.hikari.HikariDataSource;
-import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.ProjectDAO;
 import ua.goit.dao.model.Project;
 import ua.goit.dto.ProjectDTO;
 import ua.goit.view.Util;
 
-import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static ua.goit.service.Converter.fromProject;
+import static ua.goit.service.Converter.toProject;
 
 public class ProjectService implements Service<ProjectDTO>{
     private final Util util = new Util();
-    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     private final ProjectDAO projectDAO = new ProjectDAO();
 
     @Override
@@ -55,20 +56,30 @@ public class ProjectService implements Service<ProjectDTO>{
     }
 
     @Override
-    public String getAll(){
+    public List<ProjectDTO> getAll(){
         try {
-            return util.joinListElements(projectDAO.getAll());
+            List<Project> projects = projectDAO.getAll();
+            List<ProjectDTO> projectsDTO = new ArrayList<>();
+            for (Project project:projects) {
+                projectsDTO.add(fromProject(project));
+            }
+            return projectsDTO;
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
     @Override
-    public String getAll(ProjectDTO entity) {
+    public List<ProjectDTO> getAll(ProjectDTO entity) {
         try {
-            return util.joinListElements(projectDAO.getAll());
+            List<Project> projects = projectDAO.getAll();
+            List<ProjectDTO> projectsDTO = new ArrayList<>();
+            for (Project project:projects) {
+                projectsDTO.add(fromProject(project));
+            }
+            return projectsDTO;
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -83,8 +94,4 @@ public class ProjectService implements Service<ProjectDTO>{
         }
     }
 
-    public static Project toProject(ProjectDTO projectDTO){
-        return new Project(projectDTO.getProject_id(), projectDTO.getProject_name(), projectDTO.getProject_description(),
-                projectDTO.getCost(), (Date) projectDTO.getStart_date());
-    }
 }

@@ -8,6 +8,11 @@ import ua.goit.dto.CustomerDTO;
 import ua.goit.view.Util;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static ua.goit.service.Converter.fromCustomer;
+import static ua.goit.service.Converter.toCustomer;
 
 public class CustomerService implements Service<CustomerDTO>{
     private final Util util = new Util();
@@ -61,20 +66,23 @@ public class CustomerService implements Service<CustomerDTO>{
     }
 
     @Override
-    public String getAll() throws SQLException {
-        return util.joinListElements(customerDAO.getAll());
+    public List<CustomerDTO> getAll() throws SQLException {
+        List<Customer> customers = customerDAO.getAll();
+        List<CustomerDTO> customersDTO = new ArrayList<>();
+        for (Customer customer:customers) {
+            customersDTO.add(fromCustomer(customer));
+        }
+        return customersDTO;
     }
 
     @Override
-    public String getAll(CustomerDTO entity) throws SQLException {
-        return util.joinListElements(customerDAO.getAll());
+    public List<CustomerDTO> getAll(CustomerDTO entity) throws SQLException {
+        List<Customer> customers = customerDAO.getAll();
+        List<CustomerDTO> customersDTO = new ArrayList<>();
+        for (Customer customer:customers) {
+            customersDTO.add(fromCustomer(customer));
+        }
+        return customersDTO;
     }
 
-    public static Customer toCustomer(CustomerDTO customerDTO){
-        return new Customer(customerDTO.getCustomer_id(), customerDTO.getCustomer_name());
-    }
-
-    public static CustomerDTO fromCustomer(Customer customer){
-        return new CustomerDTO(customer.getCustomer_id(), customer.getCustomer_name());
-    }
 }

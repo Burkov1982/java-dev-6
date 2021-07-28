@@ -3,14 +3,15 @@ package ua.goit.dao;
 import com.zaxxer.hikari.HikariDataSource;
 import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.model.Link;
-import ua.goit.service.LinkService;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ua.goit.service.Converter.toLink;
+
 public abstract class AbstractDAO<T> implements DataAccessObject<T> {
-    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
+    private static final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
 
     protected HikariDataSource getConnectionManager() {
         return dataSource;
@@ -74,9 +75,7 @@ public abstract class AbstractDAO<T> implements DataAccessObject<T> {
     }
 
     public void deleteLink(Link entity) throws SQLException {
-        String deleteQuery = getDeleteQuery();
-        try (Connection connection = dataSource.getConnection()){
-            PreparedStatement preparedStatement = enrichPreparedStatement(dataSource, entity, "DELETE");
+        try (PreparedStatement preparedStatement = enrichPreparedStatement(dataSource, entity, "DELETE")){
             preparedStatement.execute();
         }
     }
@@ -94,15 +93,13 @@ public abstract class AbstractDAO<T> implements DataAccessObject<T> {
     }
 
     public void updateLink(Link entity, Link oldEntity) throws SQLException {
-        try (Connection connection = dataSource.getConnection()){
-            PreparedStatement preparedStatement = enrichUpdatePreparedStatement(dataSource, entity, oldEntity);
+        try (PreparedStatement preparedStatement = enrichUpdatePreparedStatement(dataSource, entity, oldEntity);){
             preparedStatement.execute();
         }
     }
 
     public void createLink(Link entity) throws SQLException {
-        try (Connection connection = dataSource.getConnection()){
-            PreparedStatement preparedStatement = enrichPreparedStatement(dataSource, entity, "CREATE");
+        try (PreparedStatement preparedStatement = enrichPreparedStatement(dataSource, entity, "CREATE")){
             preparedStatement.execute();
         }
     }
@@ -128,11 +125,9 @@ public abstract class AbstractDAO<T> implements DataAccessObject<T> {
     }
 
     public List<Link> getAllLinks(Link link) throws SQLException{
-        LinkService linkService = new LinkService();
-        try (Connection connection = dataSource.getConnection()){
-            PreparedStatement preparedStatement = enrichPreparedStatement(dataSource, link, "GET_ALL");
+        try (PreparedStatement preparedStatement = enrichPreparedStatement(dataSource, link, "GET_ALL")){
             ResultSet resultSet = preparedStatement.executeQuery();
-            return linkService.toLink(resultSet, link.getTable());
+            return toLink(resultSet, link.getTable());
         }
     }
 

@@ -8,27 +8,41 @@ import ua.goit.dto.SkillDTO;
 import ua.goit.view.Util;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static ua.goit.service.Converter.fromSkill;
+import static ua.goit.service.Converter.toSkill;
 
 public class SkillService implements Service<SkillDTO>{
     private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     private final SkillDAO skillDAO = new SkillDAO();
     private final Util util = new Util();
 
-    @Override
-    public String getAll(){
+    public List<SkillDTO> getAll(){
         try {
-            return util.joinListElements(skillDAO.getAll());
+            List<Skill> skills = skillDAO.getAll();
+            List<SkillDTO> skillsDTO = new ArrayList<>();
+            for (Skill skill:skills) {
+                skillsDTO.add(fromSkill(skill));
+            }
+            return skillsDTO;
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
     @Override
-    public String getAll(SkillDTO entity) {
+    public List<SkillDTO> getAll(SkillDTO entity) {
         try {
-            return util.joinListElements(skillDAO.getAll());
+            List<Skill> skills = skillDAO.getAll();
+            List<SkillDTO> skillsDTO = new ArrayList<>();
+            for (Skill skill:skills) {
+                skillsDTO.add(fromSkill(skill));
+            }
+            return skillsDTO;
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -80,9 +94,5 @@ public class SkillService implements Service<SkillDTO>{
         } catch (SQLException e) {
             return "An error has occurred, please try to enter data again";
         }
-    }
-
-    public static Skill toSkill(SkillDTO skillDTO){
-        return new Skill(skillDTO.getSkill_id(), skillDTO.getBranch(), skillDTO.getStage());
     }
 }

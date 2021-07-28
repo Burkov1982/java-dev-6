@@ -8,6 +8,11 @@ import ua.goit.dto.CompanyDTO;
 import ua.goit.view.Util;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static ua.goit.service.Converter.fromCompany;
+import static ua.goit.service.Converter.toCompany;
 
 public class CompanyService implements Service<CompanyDTO> {
     private final Util util = new Util();
@@ -64,24 +69,31 @@ public class CompanyService implements Service<CompanyDTO> {
     }
 
     @Override
-    public String getAll() {
+    public List<CompanyDTO> getAll() {
         try {
-            return util.joinListElements(companyDAO.getAll());
+            List<Company> companies = companyDAO.getAll();
+            List<CompanyDTO> companiesDTO = new ArrayList<>();
+            for (Company company:companies) {
+                companiesDTO.add(fromCompany(company));
+            }
+            return companiesDTO;
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
     @Override
-    public String getAll(CompanyDTO entity) {
+    public List<CompanyDTO> getAll(CompanyDTO entity) {
         try {
-            return util.joinListElements(companyDAO.getAll());
+            List<Company> companies = companyDAO.getAll();
+            List<CompanyDTO> companiesDTO = new ArrayList<>();
+            for (Company company:companies) {
+                companiesDTO.add(fromCompany(company));
+            }
+            return companiesDTO;
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
-    public static Company toCompany(CompanyDTO companyDTO){
-        return new Company(companyDTO.getCompany_id(), companyDTO.getCompany_name(), companyDTO.getHeadquarters());
-    }
 }

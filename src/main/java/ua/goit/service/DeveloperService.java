@@ -6,6 +6,11 @@ import ua.goit.dto.DeveloperDTO;
 import ua.goit.view.Util;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static ua.goit.service.Converter.fromDeveloper;
+import static ua.goit.service.Converter.toDeveloper;
 
 public class DeveloperService implements Service<DeveloperDTO>{
     private final DeveloperDAO developerDAO = new DeveloperDAO();
@@ -61,25 +66,31 @@ public class DeveloperService implements Service<DeveloperDTO>{
     }
 
     @Override
-    public String getAll(){
+    public List<DeveloperDTO> getAll(){
         try {
-            return util.joinListElements(developerDAO.getAll());
+            List<Developer> developers = developerDAO.getAll();
+            List<DeveloperDTO> developersDTO = new ArrayList<>();
+            for (Developer developer:developers) {
+                developersDTO.add(fromDeveloper(developer));
+            }
+            return developersDTO;
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
     @Override
-    public String getAll(DeveloperDTO entity) {
+    public List<DeveloperDTO> getAll(DeveloperDTO entity) {
         try {
-            return util.joinListElements(developerDAO.getAll());
+            List<Developer> developers = developerDAO.getAll();
+            List<DeveloperDTO> developersDTO = new ArrayList<>();
+            for (Developer developer:developers) {
+                developersDTO.add(fromDeveloper(developer));
+            }
+            return developersDTO;
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
-    public static Developer toDeveloper(DeveloperDTO developerDTO){
-        return new Developer(developerDTO.getDeveloper_id(), developerDTO.getFirst_name(), developerDTO.getLast_name(),
-                developerDTO.getGender(), developerDTO.getSalary());
-    }
 }

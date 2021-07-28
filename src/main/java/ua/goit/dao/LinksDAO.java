@@ -2,7 +2,6 @@ package ua.goit.dao;
 
 import com.zaxxer.hikari.HikariDataSource;
 import ua.goit.dao.model.Link;
-import ua.goit.service.LinkService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LinksDAO extends AbstractDAO<Link>{
-
-    private final LinkService linkService = new LinkService();
-
     @Override
     protected String getCreateQuery() {
         return "INSERT INTO %s (%s) VALUES (%s)";
@@ -30,46 +26,19 @@ public class LinksDAO extends AbstractDAO<Link>{
 
     @Override
     protected PreparedStatement enrichPreparedStatement(HikariDataSource dataSource, Link entity, String command) {
-        String uniquePart = null;
-        String part = null;
-        String values = null;
-        try (Connection connection = dataSource.getConnection()){
-
-
-            switch (entity.getTable()){
-                case "customers_companies" -> {
-                    uniquePart = String.format("customer_id = %s, company_id = %s, project_id = %s",
-                            entity.getCustomer_id(), entity.getCompany_id(), entity.getProject_id());
-                    part = "customer_id, company_id, project_id";
-                    values = String.format("%d, %d, %d", entity.getCustomer_id(), entity.getCompany_id(),
-                            entity.getProject_id());
-                }
-                case "project_developers" -> {
-                    uniquePart = String.format("project_id = %s, developer_id = %s",
-                            entity.getProject_id(), entity.getDeveloper_id());
-                    part = "project_id, developer_id";
-                    values = String.format("%d, %d", entity.getProject_id(), entity.getDeveloper_id());
-                }
-                case "developer_skills" -> {
-                    uniquePart = String.format("skill_id = %s, developer_id = %s",
-                            entity.getSkill_id(), entity.getDeveloper_id());
-                    part = "skill_id, developer_id";
-                    values = String.format("%d, %d", entity.getSkill_id(), entity.getDeveloper_id());
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+            if ("GET_ALL".equals(command)) {
+                switch (entity.getTable()) {
+                    case "customers_companies":
+                        return connection.prepareStatement(getAllCustomersCompanies());
+                    case "developer_skills":
+                        return connection.prepareStatement(getAllDeveloperSkills());
+                    case "project_developers":
+                        return connection.prepareStatement(getAllProjectDevelopers());
                 }
             }
-            switch (command){
-                case "DELETE" -> {
-                    return connection.prepareStatement(String.format(getDeleteQuery(), entity.getTable(), uniquePart));
-                }
-                case "CREATE" -> {
-                    return connection.prepareStatement(String.format(getCreateQuery(), entity.getTable(),
-                            part, values));
-                }
-                case "GET_ALL" -> {
-                    return connection.prepareStatement(String.format(getSelectAllQuery(), entity.getTable()));
-                }
-            }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,28 +52,6 @@ public class LinksDAO extends AbstractDAO<Link>{
         String values = null;
         try (Connection connection = dataSource.getConnection()){
 
-
-            switch (entity.getTable()){
-                case "customers_companies" -> {
-                    uniquePart = String.format("customer_id = %s AND company_id = %s AND project_id = %s",
-                            entity.getCustomer_id(), entity.getCompany_id(), entity.getProject_id());
-                    part = "customer_id, company_id, project_id";
-                    values = String.format("%d, %d, %d", entity.getCustomer_id(), entity.getCompany_id(),
-                            entity.getProject_id());
-                }
-                case "project_developers" -> {
-                    uniquePart = String.format("project_id = %s, developer_id = %s",
-                            entity.getProject_id(), entity.getDeveloper_id());
-                    part = "project_id, developer_id";
-                    values = String.format("%d, %d", entity.getProject_id(), entity.getDeveloper_id());
-                }
-                case "developer_skills" -> {
-                    uniquePart = String.format("skill_id = %s, developer_id = %s",
-                            entity.getSkill_id(), entity.getDeveloper_id());
-                    part = "skill_id, developer_id";
-                    values = String.format("%d, %d", entity.getSkill_id(), entity.getDeveloper_id());
-                }
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -121,6 +68,17 @@ public class LinksDAO extends AbstractDAO<Link>{
         return "SELECT %s FROM %s";
     }
 
+    private String getAllCustomersCompanies(){
+        return "SELECT customer_id, company_id, project_id FROM customers_companies";
+    }
+
+    private String getAllProjectDevelopers(){
+        return "SELECT project_id, developer_id FROM project_developers";
+    }
+
+    private String getAllDeveloperSkills(){
+        return "SELECT skill_id, developer_id FROM developer_skills";
+    }
     @Override
     protected void sendEntity(PreparedStatement statement, Link object) throws SQLException {
 

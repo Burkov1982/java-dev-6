@@ -67,4 +67,16 @@ public class LinkDTO {
         public void setSkill_id(Integer skill_id) {
             this.skill_id = skill_id;
         }
+
+    @Override
+    public String toString() {
+        return "LinkDTO{" +
+                "table='" + table + '\'' +
+                ", project_id=" + project_id +
+                ", customer_id=" + customer_id +
+                ", developer_id=" + developer_id +
+                ", company_id=" + company_id +
+                ", skill_id=" + skill_id +
+                '}';
+    }
 }

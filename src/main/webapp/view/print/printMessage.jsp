@@ -40,31 +40,12 @@
 <div style="margin-left:25%">
 
 <div class="w3-container w3-dark-grey">
-  <h1>Home page of JAVA GEVELOPER #6</h1>
+  <h1>Home page of JAVA DEVELOPER #6</h1>
 </div>
 
 <div class="w3-container"><br><br>
- <form action="/skills" method="POST">
-    <label for="country">Table Name</label>
-
-    <select id="tableName" name="tableName">
-      <option value="customers_companies">Customers-Companies</option>
-      <option value="project_developers">Project-Developers</option>
-      <option value="developer_skills">Developer-Skills</option>
-    </select>
-
-    <input type="submit" value="Submit">
-  </form>
-		<p>List of links</p>
-        <c:forEach items="${links}" var="link">
-            Table name: ${link.table}<br>
-            Project id: ${link.project_id}<br>
-            Customer id: ${link.customer_id}<br>
-            Developer id: ${link.developer_id}<br>
-            Company id: ${link.company_id}<br>
-            Skill id: ${link.skill_id}<br><br>
-        </c:forEach>
-
+    <p>Your request has been processed resulting:</p>
+    ${result}
 </div>
 
 </div>

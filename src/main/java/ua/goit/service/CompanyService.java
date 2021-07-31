@@ -1,7 +1,5 @@
 package ua.goit.service;
 
-import com.zaxxer.hikari.HikariDataSource;
-import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.CompanyDAO;
 import ua.goit.dao.model.Company;
 import ua.goit.dto.CompanyDTO;
@@ -16,15 +14,14 @@ import static ua.goit.service.Converter.toCompany;
 
 public class CompanyService implements Service<CompanyDTO> {
     private final Util util = new Util();
-    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     CompanyDAO companyDAO = new CompanyDAO();
     @Override
-    public String create(CompanyDTO companyDTO){
+    public CompanyDTO create(CompanyDTO companyDTO){
         Company company = toCompany(companyDTO);
         try {
-            return companyDAO.create(company).toString();
+            return fromCompany(companyDAO.create(company));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -35,17 +32,17 @@ public class CompanyService implements Service<CompanyDTO> {
             companyDAO.delete(company.getCompany_id());
             return "Your request has been processed successfully";
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return "Please delete the entries in the Link section associated with this identifier.";
         }
     }
 
     @Override
-    public String update(CompanyDTO companyDTO) {
+    public CompanyDTO update(CompanyDTO companyDTO) {
         Company company = toCompany(companyDTO);
         try {
-            return companyDAO.update(company).toString();
+            return fromCompany(companyDAO.update(company));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -60,11 +57,11 @@ public class CompanyService implements Service<CompanyDTO> {
     }
 
     @Override
-    public String getById(int id) {
+    public CompanyDTO getById(int id) {
         try {
-            return companyDAO.findById(id).toString();
+            return fromCompany(companyDAO.findById(id));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -83,14 +80,14 @@ public class CompanyService implements Service<CompanyDTO> {
     }
 
     @Override
-    public List<CompanyDTO> getAll(CompanyDTO entity) {
+    public String getAll(CompanyDTO entity) {
         try {
             List<Company> companies = companyDAO.getAll();
             List<CompanyDTO> companiesDTO = new ArrayList<>();
             for (Company company:companies) {
                 companiesDTO.add(fromCompany(company));
             }
-            return companiesDTO;
+            return util.joinListElements(companiesDTO);
         } catch (SQLException e) {
             return null;
         }

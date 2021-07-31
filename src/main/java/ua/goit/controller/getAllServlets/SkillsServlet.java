@@ -15,6 +15,6 @@ public class SkillsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SkillService service = new SkillService();
         req.setAttribute("skills", service.getAll());
-        req.getRequestDispatcher("/view/skills.jsp").forward(req, resp);
+        req.getRequestDispatcher("/view/getAll/skills.jsp").forward(req, resp);
     }
 }

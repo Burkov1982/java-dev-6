@@ -17,8 +17,8 @@ public class LinksCustomersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LinkDTO linkDTO = new LinkDTO();
         linkDTO.setTable("customers_companies");
-        req.setAttribute("links", linkService.getAll(linkDTO));
-        req.getRequestDispatcher("/view/linksPrint.jsp").forward(req, resp);
+        req.setAttribute("result", linkService.getAll(linkDTO));
+        req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
     }
 
 }

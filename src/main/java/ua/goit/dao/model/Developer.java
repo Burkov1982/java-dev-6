@@ -60,10 +60,12 @@ public class Developer {
 
     @Override
     public String toString(){
-        return String.format("Идентификатор разработчика: %d \n" +
-                             "Имя разработчика: %s \n" +
-                             "Фамилия разработчика: %s \n" +
-                             "Пол разработчика: %s \n" +
-                             "Зарплата разработчика: %d \n", developer_id, first_name, last_name, gender, salary);
+        return String.format("""
+                Идентификатор разработчика: %d\s
+                Имя разработчика: %s\s
+                Фамилия разработчика: %s\s
+                Пол разработчика: %s\s
+                Зарплата разработчика: %d\s
+                """, developer_id, first_name, last_name, gender, salary);
     }
 }

@@ -41,8 +41,10 @@ public class Company{
 
     @Override
     public String toString() {
-        return  String.format("Идентификатор компании: %s \n" +
-                              "Название компании: %s \n" +
-                              "Главный офис  компании: %s \n", company_id, company_name, headquarters);
+        return  String.format("""
+                Идентификатор компании: %s\s
+                Название компании: %s\s
+                Главный офис  компании: %s\s
+                """, company_id, company_name, headquarters);
     }
 }

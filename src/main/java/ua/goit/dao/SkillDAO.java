@@ -36,7 +36,7 @@ public class SkillDAO extends AbstractDAO<Skill> {
 
     @Override
     protected String getDeleteQuery() {
-        return "DELETE FROM skills WHERE id = ?";
+        return "DELETE FROM skills WHERE skill_id = ?";
     }
 
     @Override

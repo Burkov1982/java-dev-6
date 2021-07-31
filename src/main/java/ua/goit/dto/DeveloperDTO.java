@@ -60,10 +60,10 @@ public class DeveloperDTO {
 
     @Override
     public String toString(){
-        return "Developer id: " + String.valueOf(developer_id) +
+        return "Developer id: " + developer_id +
                 "Developer firstname: " + first_name +
                 "Developer lastname: " + last_name +
                 "Developer gender: " + gender +
-                "Developer salary: " + String.valueOf(salary);
+                "Developer salary: " + salary;
     }
 }

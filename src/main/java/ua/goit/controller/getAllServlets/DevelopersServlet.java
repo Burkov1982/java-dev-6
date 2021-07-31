@@ -19,6 +19,8 @@ public class DevelopersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<DeveloperDTO> developers = developerService.getAll();
         req.setAttribute("devs", developers);
-        req.getRequestDispatcher("/view/developers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/view/getAll/developers.jsp").forward(req, resp);
     }
+
+
 }

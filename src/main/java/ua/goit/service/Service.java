@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface Service<T> {
     List<T> getAll() throws SQLException;
-    List<T> getAll(T entity) throws SQLException;
-    String getById(int id) throws SQLException;
-    String create(T entity) throws SQLException;
+    String getAll(T entity) throws SQLException;
+    T getById(int id) throws SQLException;
+    T create(T entity) throws SQLException;
     String delete(T entity) throws SQLException;
-    String update(T entity) throws SQLException;
+    T update(T entity) throws SQLException;
     String update(T entity, T newEntity) throws SQLException;
 }

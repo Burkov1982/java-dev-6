@@ -1,7 +1,5 @@
 package ua.goit.service;
 
-import com.zaxxer.hikari.HikariDataSource;
-import ua.goit.config.DatabaseConnectionManager;
 import ua.goit.dao.SkillDAO;
 import ua.goit.dao.model.Skill;
 import ua.goit.dto.SkillDTO;
@@ -15,7 +13,6 @@ import static ua.goit.service.Converter.fromSkill;
 import static ua.goit.service.Converter.toSkill;
 
 public class SkillService implements Service<SkillDTO>{
-    private final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();
     private final SkillDAO skillDAO = new SkillDAO();
     private final Util util = new Util();
 
@@ -33,26 +30,26 @@ public class SkillService implements Service<SkillDTO>{
     }
 
     @Override
-    public List<SkillDTO> getAll(SkillDTO entity) {
+    public String getAll(SkillDTO entity) {
         try {
             List<Skill> skills = skillDAO.getAll();
             List<SkillDTO> skillsDTO = new ArrayList<>();
             for (Skill skill:skills) {
                 skillsDTO.add(fromSkill(skill));
             }
-            return skillsDTO;
+            return util.joinListElements(skillsDTO);
         } catch (SQLException e) {
             return null;
         }
     }
 
     @Override
-    public String create(SkillDTO skillDTO) {
+    public SkillDTO create(SkillDTO skillDTO) {
         Skill skill = toSkill(skillDTO);
         try {
-            return skillDAO.create(skill).toString();
+            return fromSkill(skillDAO.create(skill));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -63,26 +60,27 @@ public class SkillService implements Service<SkillDTO>{
             skillDAO.delete(skill.getSkill_id());
             return "Your request has been processed successfully";
         } catch (SQLException e){
+            e.printStackTrace();
             return "An error has occurred, please try to enter data again";
         }
     }
 
     @Override
-    public String getById(int id) {
+    public SkillDTO getById(int id) {
         try {
-            return skillDAO.findById(id).toString();
+            return fromSkill(skillDAO.findById(id));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
     @Override
-    public String update(SkillDTO skillDTO) {
+    public SkillDTO update(SkillDTO skillDTO) {
         Skill skill = toSkill(skillDTO);
         try {
-            return skillDAO.update(skill).toString();
+            return fromSkill(skillDAO.update(skill));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -92,7 +90,7 @@ public class SkillService implements Service<SkillDTO>{
         try {
             return skillDAO.update(skill).toString();
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return "Please delete the entries in the Link section associated with this identifier.";
         }
     }
 }

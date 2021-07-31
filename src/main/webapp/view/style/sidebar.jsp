@@ -4,12 +4,12 @@
   <div class="w3-dropdown-hover">
     <button class="w3-button">Create <i class="fa fa-caret-down"></i></button>
     <div class="w3-dropdown-content w3-bar-block">
-      <a href="/view/developer/create.jsp" class="w3-bar-item w3-button">Developer</a>
-      <a href="/view/link/create.jsp" class="w3-bar-item w3-button">Link</a>
-      <a href="/view/project/create.jsp" class="w3-bar-item w3-button">Project</a>
-      <a href="/view/customer/create.jsp" class="w3-bar-item w3-button">Customer</a>
-      <a href="/view/company/create.jsp" class="w3-bar-item w3-button">Company</a>
-      <a href="/view/skill/create.jsp" class="w3-bar-item w3-button">Skill</a>
+      <a href="/addDeveloper" class="w3-bar-item w3-button">Developer</a>
+      <a href="/addLink" class="w3-bar-item w3-button">Link</a>
+      <a href="/addProject" class="w3-bar-item w3-button">Project</a>
+      <a href="/addCustomer" class="w3-bar-item w3-button">Customer</a>
+      <a href="/addCompany" class="w3-bar-item w3-button">Company</a>
+      <a href="/addSkill" class="w3-bar-item w3-button">Skill</a>
       </div>
   </div>
 
@@ -30,11 +30,11 @@
   <div class="w3-dropdown-hover">
     <button class="w3-button">Read by ID <i class="fa fa-caret-down"></i></button>
     <div class="w3-dropdown-content w3-bar-block">
-      <a href="/developerById" class="w3-bar-item w3-button">Developer by ID</a>
-      <a href="/projectById" class="w3-bar-item w3-button">Project By ID</a>
-      <a href="/customerById" class="w3-bar-item w3-button">Customer by ID</a>
-      <a href="/companyById" class="w3-bar-item w3-button">Company by ID</a>
-      <a href="/skillById" class="w3-bar-item w3-button">Skill by ID</a>
+      <a href="/developer" class="w3-bar-item w3-button">Developer by ID</a>
+      <a href="/project" class="w3-bar-item w3-button">Project By ID</a>
+      <a href="/customer" class="w3-bar-item w3-button">Customer by ID</a>
+      <a href="/company" class="w3-bar-item w3-button">Company by ID</a>
+      <a href="/skill" class="w3-bar-item w3-button">Skill by ID</a>
     </div>
   </div>
 
@@ -42,24 +42,24 @@
   <div class="w3-dropdown-hover">
     <button class="w3-button">Update <i class="fa fa-caret-down"></i></button>
     <div class="w3-dropdown-content w3-bar-block">
-      <a href="/view/developer/update.jsp" class="w3-bar-item w3-button">Developer</a>
-      <a href="/view/link/update.jsp" class="w3-bar-item w3-button">Link</a>
-      <a href="/view/project/update.jsp" class="w3-bar-item w3-button">Project</a>
-      <a href="/view/customer/update.jsp" class="w3-bar-item w3-button">Customer</a>
-      <a href="/view/company/update.jsp" class="w3-bar-item w3-button">Company</a>
-      <a href="/view/skill/update.jsp" class="w3-bar-item w3-button">Skill</a>
+      <a href="/updateDeveloper" class="w3-bar-item w3-button">Developer</a>
+      <a href="/updateLink" class="w3-bar-item w3-button">Link</a>
+      <a href="/updateProject" class="w3-bar-item w3-button">Project</a>
+      <a href="/updateCustomer" class="w3-bar-item w3-button">Customer</a>
+      <a href="/updateCompany" class="w3-bar-item w3-button">Company</a>
+      <a href="/updateSkill" class="w3-bar-item w3-button">Skill</a>
     </div>
   </div>
 
   <div class="w3-dropdown-hover">
     <button class="w3-button">Delete <i class="fa fa-caret-down"></i></button>
     <div class="w3-dropdown-content w3-bar-block">
-      <a href="/view/developer/delete.jsp" class="w3-bar-item w3-button">Developer</a>
-      <a href="/view/link/delete.jsp" class="w3-bar-item w3-button">Link</a>
-      <a href="/view/project/delete.jsp" class="w3-bar-item w3-button">Project</a>
-      <a href="/view/customer/delete.jsp" class="w3-bar-item w3-button">Customer</a>
-      <a href="/view/company/delete.jsp" class="w3-bar-item w3-button">Company</a>
-      <a href="/view/skill/delete.jsp" class="w3-bar-item w3-button">Skill</a>
+      <a href="/deleteDeveloper" class="w3-bar-item w3-button">Developer</a>
+      <a href="/deleteLink" class="w3-bar-item w3-button">Link</a>
+      <a href="/deleteProject" class="w3-bar-item w3-button">Project</a>
+      <a href="/deleteCustomer" class="w3-bar-item w3-button">Customer</a>
+      <a href="/deleteCompany" class="w3-bar-item w3-button">Company</a>
+      <a href="/deleteSkill" class="w3-bar-item w3-button">Skill</a>
     </div>
   </div>
 </div>

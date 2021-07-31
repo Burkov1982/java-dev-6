@@ -44,7 +44,18 @@
 </div>
 
 <div class="w3-container"><br><br>
-  		<p>List of links</p>
+ <form action="/skills" method="POST">
+    <label for="country">Table Name</label>
+
+    <select id="tableName" name="tableName">
+      <option value="customers_companies">Customers-Companies</option>
+      <option value="project_developers">Project-Developers</option>
+      <option value="developer_skills">Developer-Skills</option>
+    </select>
+
+    <input type="submit" value="Submit">
+  </form>
+		<p>List of links</p>
         <c:forEach items="${links}" var="link">
             Table name: ${link.table}<br>
             Project id: ${link.project_id}<br>
@@ -53,6 +64,7 @@
             Company id: ${link.company_id}<br>
             Skill id: ${link.skill_id}<br><br>
         </c:forEach>
+
 </div>
 
 </div>

@@ -18,6 +18,6 @@ public class CompaniesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<CompanyDTO> companies = companyService.getAll();
         req.setAttribute("companies", companies);
-        req.getRequestDispatcher("/view/companies.jsp").forward(req, resp);
+        req.getRequestDispatcher("/view/getAll/companies.jsp").forward(req, resp);
     }
 }

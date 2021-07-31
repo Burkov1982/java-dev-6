@@ -47,7 +47,7 @@ public class CompanyDAO extends AbstractDAO<Company> {
 
     @Override
     protected void sendEntity(PreparedStatement statement, Company object) throws SQLException {
-        if (object.getCompany_id()==0){
+        if (object.getCompany_id()==null){
             statement.setString(1, object.getCompany_name());
             statement.setString(2, object.getHeadquarters());
         } else{

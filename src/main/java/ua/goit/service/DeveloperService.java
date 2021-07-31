@@ -16,22 +16,25 @@ public class DeveloperService implements Service<DeveloperDTO>{
     private final DeveloperDAO developerDAO = new DeveloperDAO();
     private final Util util = new Util();
     @Override
-    public String create(DeveloperDTO developerDTO){
+    public DeveloperDTO create(DeveloperDTO developerDTO){
         Developer developer = toDeveloper(developerDTO);
         try {
-            return developerDAO.create(developer).toString();
+            return fromDeveloper(developerDAO.create(developer));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
     @Override
-    public String update(DeveloperDTO developerDTO){
+    public DeveloperDTO update(DeveloperDTO developerDTO){
         Developer developer = toDeveloper(developerDTO);
         try {
-            return developerDAO.update(developer).toString();
+            return fromDeveloper(developerDAO.update(developer));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -52,16 +55,17 @@ public class DeveloperService implements Service<DeveloperDTO>{
             developerDAO.delete(developer.getDeveloper_id());
             return "Your request has been processed successfully";
         } catch (SQLException e){
-            return "An error has occurred, please try to enter data again";
+            e.printStackTrace();
+            return "Please delete the entries in the Link section associated with this identifier.";
         }
     }
 
     @Override
-    public String getById(int id) {
+    public DeveloperDTO getById(int id) {
         try {
-            return developerDAO.findById(id).toString();
+            return fromDeveloper(developerDAO.findById(id));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -80,14 +84,14 @@ public class DeveloperService implements Service<DeveloperDTO>{
     }
 
     @Override
-    public List<DeveloperDTO> getAll(DeveloperDTO entity) {
+    public String getAll(DeveloperDTO entity) {
         try {
             List<Developer> developers = developerDAO.getAll();
             List<DeveloperDTO> developersDTO = new ArrayList<>();
             for (Developer developer:developers) {
                 developersDTO.add(fromDeveloper(developer));
             }
-            return developersDTO;
+            return util.joinListElements(developersDTO);
         } catch (SQLException e) {
             return null;
         }

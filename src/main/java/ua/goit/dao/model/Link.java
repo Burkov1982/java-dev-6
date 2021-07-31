@@ -70,11 +70,13 @@ public class Link {
 
     @Override
     public String toString(){
-        return String.format("Table: %s \n " +
-                        "Project id: %s \n " +
-                       "Customer id: %s \n " +
-                      "Developer id: %s \n " +
-                        "Company id: %s \n " +
-                          "Skill id: %s \n", table, project_id, customer_id, developer_id, company_id, skill_id);
+        return String.format("""
+                Table: %s\s
+                 Project id: %s\s
+                 Customer id: %s\s
+                 Developer id: %s\s
+                 Company id: %s\s
+                 Skill id: %s\s
+                """, table, project_id, customer_id, developer_id, company_id, skill_id);
     }
 }

@@ -3,7 +3,6 @@ package ua.goit.service;
 import ua.goit.dao.model.*;
 import ua.goit.dto.*;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -90,7 +89,7 @@ public class Converter {
 
     public static Project toProject(ProjectDTO projectDTO){
         return new Project(projectDTO.getProject_id(), projectDTO.getProject_name(), projectDTO.getProject_description(),
-                projectDTO.getCost(), (Date) projectDTO.getStart_date());
+                projectDTO.getCost(), projectDTO.getStart_date());
     }
 
     public static ProjectDTO fromProject(Project project) {

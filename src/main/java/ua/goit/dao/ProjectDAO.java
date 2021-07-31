@@ -4,12 +4,14 @@ package ua.goit.dao;
 import com.zaxxer.hikari.HikariDataSource;
 import ua.goit.dao.model.Link;
 import ua.goit.dao.model.Project;
+import ua.goit.view.Util;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProjectDAO extends AbstractDAO<Project> {
+    private final Util util = new Util();
     @Override
     protected String getCreateQuery() {
         return "INSERT INTO projects (project_name, project_description, cost, start_date) VALUES (?, ?, ?, ?)";
@@ -17,7 +19,7 @@ public class ProjectDAO extends AbstractDAO<Project> {
 
     @Override
     protected String getUpdateQuery() {
-        return "UPDATE projects SET project_name = ?, project_description = ?, cost = ?, start_date = ? " +
+        return "UPDATE projects SET project_name = ?, project_description = ?, cost = ? " +
                 "WHERE project_id = ?";
     }
 
@@ -53,12 +55,11 @@ public class ProjectDAO extends AbstractDAO<Project> {
             statement.setString(1, object.getProject_name());
             statement.setString(2, object.getProject_description());
             statement.setInt(3, object.getCost());
-            statement.setDate(4, object.getStart_date());
+            statement.setDate(4, java.sql.Date.valueOf(object.getStart_date()));
         } else {
             statement.setString(1, object.getProject_name());
             statement.setString(2, object.getProject_description());
             statement.setInt(3, object.getCost());
-            statement.setDate(4, object.getStart_date());
             statement.setInt(5, object.getProject_id());
         }
     }
@@ -70,7 +71,7 @@ public class ProjectDAO extends AbstractDAO<Project> {
         project.setProject_name(resultSet.getString("project_name"));
         project.setProject_description(resultSet.getString("project_description"));
         project.setCost(resultSet.getInt("cost"));
-        project.setStart_date(resultSet.getDate("start_date"));
+        project.setStart_date(resultSet.getDate("start_date").toLocalDate());
         return project;
     }
 }

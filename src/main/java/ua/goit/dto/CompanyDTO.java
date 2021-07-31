@@ -40,7 +40,7 @@ public class CompanyDTO {
 
     @Override
     public String toString(){
-        return "Company id: " + String.valueOf(company_id)
+        return "Company id: " + company_id
                 + "Company name: " + company_name
                 + "Company headquarters:" + headquarters;
     }

@@ -30,7 +30,9 @@ public class Customer {
 
     @Override
     public String toString(){
-        return String.format("Идентификатор заказчика: %s \n" +
-                             "Имя заказчика: %s \n", customer_id, customer_name);
+        return String.format("""
+                Идентификатор заказчика: %s\s
+                Имя заказчика: %s\s
+                """, customer_id, customer_name);
     }
 }

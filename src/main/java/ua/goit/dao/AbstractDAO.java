@@ -93,8 +93,8 @@ public abstract class AbstractDAO<T> implements DataAccessObject<T> {
     }
 
     public void updateLink(Link entity, Link oldEntity) throws SQLException {
-        try (PreparedStatement preparedStatement = enrichUpdatePreparedStatement(dataSource, entity, oldEntity);){
-            preparedStatement.execute();
+        try (PreparedStatement preparedStatement = enrichUpdatePreparedStatement(dataSource, entity, oldEntity)){
+            preparedStatement.executeUpdate();
         }
     }
 

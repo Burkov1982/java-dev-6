@@ -1,18 +1,18 @@
 package ua.goit.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ProjectDTO {
     private Integer project_id;
     private String project_name;
     private String project_description;
     private Integer cost;
-    private Date start_date;
+    private LocalDate start_date;
 
     public ProjectDTO() {
     }
 
-    public ProjectDTO(Integer project_id, String project_name, String project_description, Integer cost, Date start_date) {
+    public ProjectDTO(Integer project_id, String project_name, String project_description, Integer cost, LocalDate start_date) {
         this.project_id = project_id;
         this.project_name = project_name;
         this.project_description = project_description;
@@ -52,20 +52,20 @@ public class ProjectDTO {
         this.cost = cost;
     }
 
-    public Date getStart_date() {
+    public LocalDate getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(Date start_date) {
+    public void setStart_date(LocalDate start_date) {
         this.start_date = start_date;
     }
 
     @Override
     public String toString(){
-        return "Project id: " + String.valueOf(project_id) +
+        return "Project id: " + project_id +
                 "Project name: " + project_name +
                 "Project description: " + project_description +
-                "Project cost: " + String.valueOf(cost) +
+                "Project cost: " + cost +
                 "Project start date: " + start_date.toString();
     }
 }

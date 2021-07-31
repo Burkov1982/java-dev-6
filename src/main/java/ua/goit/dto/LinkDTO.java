@@ -70,13 +70,11 @@ public class LinkDTO {
 
     @Override
     public String toString() {
-        return "LinkDTO{" +
-                "table='" + table + '\'' +
-                ", project_id=" + project_id +
-                ", customer_id=" + customer_id +
-                ", developer_id=" + developer_id +
-                ", company_id=" + company_id +
-                ", skill_id=" + skill_id +
-                '}';
+        return String.format("Table: %s <br> " +
+                "Project id: %s <br> " +
+                "Customer id: %s <br> " +
+                "Developer id: %s <br> " +
+                "Company id: %s <br> " +
+                "Skill id: %s <br>", table, project_id, customer_id, developer_id, company_id, skill_id);
     }
 }

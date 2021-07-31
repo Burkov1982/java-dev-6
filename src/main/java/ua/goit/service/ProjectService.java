@@ -3,6 +3,7 @@ package ua.goit.service;
 import ua.goit.dao.ProjectDAO;
 import ua.goit.dao.model.Project;
 import ua.goit.dto.ProjectDTO;
+import ua.goit.view.Util;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,24 +14,26 @@ import static ua.goit.service.Converter.toProject;
 
 public class ProjectService implements Service<ProjectDTO>{
     private final ProjectDAO projectDAO = new ProjectDAO();
+    private final Util util = new Util();
 
     @Override
-    public String create(ProjectDTO projectDTO){
+    public ProjectDTO create(ProjectDTO projectDTO){
         Project project = toProject(projectDTO);
         try {
-            return projectDAO.create(project).toString();
+            return fromProject(projectDAO.create(project));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            e.printStackTrace();
+            return null;
         }
     }
 
     @Override
-    public String update(ProjectDTO projectDTO) {
+    public ProjectDTO update(ProjectDTO projectDTO) {
         Project project = toProject(projectDTO);
         try {
-            return projectDAO.update(project).toString();
+            return fromProject(projectDAO.update(project));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -40,16 +43,16 @@ public class ProjectService implements Service<ProjectDTO>{
         try {
             return projectDAO.update(project).toString();
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return "Please delete the entries in the Link section associated with this identifier.";
         }
     }
 
     @Override
-    public String getById(int id) {
+    public ProjectDTO getById(int id) {
         try {
-            return projectDAO.findById(id).toString();
+            return fromProject(projectDAO.findById(id));
         } catch (SQLException e) {
-            return "An error has occurred, please try to enter data again";
+            return null;
         }
     }
 
@@ -68,14 +71,14 @@ public class ProjectService implements Service<ProjectDTO>{
     }
 
     @Override
-    public List<ProjectDTO> getAll(ProjectDTO entity) {
+    public String getAll(ProjectDTO entity) {
         try {
             List<Project> projects = projectDAO.getAll();
             List<ProjectDTO> projectsDTO = new ArrayList<>();
             for (Project project:projects) {
                 projectsDTO.add(fromProject(project));
             }
-            return projectsDTO;
+            return util.joinListElements(projectsDTO);
         } catch (SQLException e) {
             return null;
         }

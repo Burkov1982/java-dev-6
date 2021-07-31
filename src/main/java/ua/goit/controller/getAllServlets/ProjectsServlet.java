@@ -15,6 +15,6 @@ public class ProjectsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProjectService service = new ProjectService();
         req.setAttribute("projects", service.getAll());
-        req.getRequestDispatcher("/view/projects.jsp").forward(req, resp);
+        req.getRequestDispatcher("/view/getAll/projects.jsp").forward(req, resp);
     }
 }

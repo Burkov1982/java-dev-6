@@ -1,18 +1,18 @@
 package ua.goit.dao.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Project {
     private Integer project_id;
     private String project_name;
     private String project_description;
     private Integer cost;
-    private Date start_date;
+    private LocalDate start_date;
 
     public Project() {
     }
 
-    public Project(Integer project_id, String project_name, String project_description, Integer cost, Date start_date) {
+    public Project(Integer project_id, String project_name, String project_description, Integer cost, LocalDate start_date) {
         this.project_id = project_id;
         this.project_name = project_name;
         this.project_description = project_description;
@@ -52,20 +52,22 @@ public class Project {
         this.cost = cost;
     }
 
-    public Date getStart_date() {
+    public LocalDate getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(Date start_date) {
+    public void setStart_date(LocalDate start_date) {
         this.start_date = start_date;
     }
 
     @Override
     public String toString(){
-        return String.format("Идентификатор проекта: %s \n" +
-                "Название проета: %s \n" +
-                "Описание проекта: %s \n" +
-                "Стоимость проекта: %s \n" +
-                "Дата начала проекта: %s \n", project_id, project_name, project_description, cost, start_date);
+        return String.format("""
+                Идентификатор проекта: %s\s
+                Название проета: %s\s
+                Описание проекта: %s\s
+                Стоимость проекта: %s\s
+                Дата начала проекта: %s\s
+                """, project_id, project_name, project_description, cost, start_date);
     }
 }

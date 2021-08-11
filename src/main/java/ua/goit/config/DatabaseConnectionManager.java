@@ -14,11 +14,9 @@ public class DatabaseConnectionManager {
     }
 
     public static void init() {
-        System.out.println("start init db");
         PropertiesLoader propertiesLoader = new PropertiesLoader();
         propertiesLoader.loadPropertiesFile("db.properties");
         initDataSource(propertiesLoader);
-        System.out.println("db started");
     }
 
     public static synchronized HikariDataSource getDataSource() {
@@ -32,8 +30,7 @@ public class DatabaseConnectionManager {
     private static void initDataSource(PropertiesLoader propertiesLoader) {
         try {
             HikariConfig config = new HikariConfig();
-            config.setJdbcUrl(String.format("jdbc:postgresql://%s/%s", propertiesLoader.getProperty("db.host"),
-                    propertiesLoader.getProperty("db.name")));
+            config.setJdbcUrl(propertiesLoader.getProperty("db.url"));
             config.setUsername(propertiesLoader.getProperty("username"));
             config.setPassword(propertiesLoader.getProperty("password"));
             config.setDriverClassName(propertiesLoader.getProperty("jdbc.driver"));

@@ -28,9 +28,10 @@ public class UpdateSkillServlet extends HttpServlet {
             skillDTO.setStage(req.getParameter("stage"));
             SkillDTO skill = service.update(skillDTO);
             req.setAttribute("result", skill);
+            req.getRequestDispatcher("/view/print/printSkill.jsp").forward(req, resp);
         } else {
             req.setAttribute("result", "An error has occurred, please resend the request");
+            req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/view/print/printSkill.jsp").forward(req, resp);
     }
 }

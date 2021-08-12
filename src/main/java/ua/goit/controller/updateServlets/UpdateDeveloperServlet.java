@@ -29,9 +29,10 @@ public class UpdateDeveloperServlet extends HttpServlet {
             developerDTO.setSalary(Integer.parseInt(req.getParameter("salary")));
             DeveloperDTO result = developerService.update(developerDTO);
             req.setAttribute("result", result);
+            req.getRequestDispatcher("/view/print/printDeveloper.jsp").forward(req, resp);
         } else {
             req.setAttribute("result", "An error has occurred, please resend the request");
+            req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/view/print/printDeveloper.jsp").forward(req, resp);
     }
 }

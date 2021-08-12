@@ -26,9 +26,10 @@ public class UpdateCustomerServlet extends HttpServlet {
             customerDTO.setCustomer_name(req.getParameter("customerName"));
             CustomerDTO customerDTO1 = service.update(customerDTO);
             req.setAttribute("result", customerDTO1);
+            req.getRequestDispatcher("/view/print/printCustomer.jsp").forward(req, resp);
         } else {
             req.setAttribute("result", "An error has occurred, please resend the request");
+            req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/view/print/printCustomer.jsp").forward(req, resp);
     }
 }

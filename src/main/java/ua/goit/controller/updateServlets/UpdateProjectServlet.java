@@ -35,9 +35,10 @@ public class UpdateProjectServlet extends HttpServlet {
             }
             ProjectDTO project = service.update(projectDTO);
             req.setAttribute("result", project);
+            req.getRequestDispatcher("/view/print/printProject.jsp").forward(req, resp);
         } else {
             req.setAttribute("result", "An error has occurred, please resend the request");
+            req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/view/print/printProject.jsp").forward(req, resp);
     }
 }

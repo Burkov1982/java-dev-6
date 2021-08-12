@@ -28,9 +28,10 @@ public class UpdateCompanyServlet extends HttpServlet {
             dto.setHeadquarters(req.getParameter("headquarters"));
             CompanyDTO companyDTO = service.update(dto);
             req.setAttribute("result", companyDTO);
+            req.getRequestDispatcher("/view/print/printCompany.jsp").forward(req, resp);
         } else {
             req.setAttribute("result", "An error has occurred, please resend the request");
+            req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/view/print/printCompany.jsp").forward(req, resp);
     }
 }

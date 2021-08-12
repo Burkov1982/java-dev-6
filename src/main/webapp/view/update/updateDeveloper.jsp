@@ -45,14 +45,14 @@ input[type=submit]:hover {
 	<div class="w3-container">
 
       <form action="/updateDeveloper" method="POST">
-        <input type="number" id="developerId" name="developerId" placeholder="Enter developer id">
-        <input type="text" id="firstname" name="firstname" placeholder="Enter first name">
-        <input type="text" id="lastname" name="lastname" placeholder="Enter last name">
+        <input type="number" id="developerId" name="developerId" required="" placeholder="Enter developer id">
+        <input type="text" id="firstname" name="firstname" required="" placeholder="Enter first name">
+        <input type="text" id="lastname" name="lastname" required="" placeholder="Enter last name">
         <select id="gender" name="gender">
             <option value="male">Male</option>
             <option value="female">Female</option>
         </select>
-        <input type="number" id="salary" name="salary" placeholder="Enter salary">
+        <input type="number" id="salary" name="salary" required="" placeholder="Enter salary">
         <input type="submit" value="Submit">
       </form>
 	</div>

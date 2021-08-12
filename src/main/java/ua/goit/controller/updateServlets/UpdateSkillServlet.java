@@ -21,12 +21,16 @@ public class UpdateSkillServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SkillDTO skillDTO = new SkillDTO();
-        skillDTO.setSkill_id(Integer.parseInt(req.getParameter("skillId")));
-        skillDTO.setBranch(req.getParameter("branch"));
-        skillDTO.setStage(req.getParameter("stage"));
-        SkillDTO skill = service.update(skillDTO);
-        req.setAttribute("result", skill);
+        if (service.getById(Integer.parseInt(req.getParameter("skillId")))!=null){
+            SkillDTO skillDTO = new SkillDTO();
+            skillDTO.setSkill_id(Integer.parseInt(req.getParameter("skillId")));
+            skillDTO.setBranch(req.getParameter("branch"));
+            skillDTO.setStage(req.getParameter("stage"));
+            SkillDTO skill = service.update(skillDTO);
+            req.setAttribute("result", skill);
+        } else {
+            req.setAttribute("result", "An error has occurred, please resend the request");
+        }
         req.getRequestDispatcher("/view/print/printSkill.jsp").forward(req, resp);
     }
 }

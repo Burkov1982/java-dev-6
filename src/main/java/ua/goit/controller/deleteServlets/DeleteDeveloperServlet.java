@@ -21,10 +21,14 @@ public class DeleteDeveloperServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DeveloperDTO developerDTO = new DeveloperDTO();
-        developerDTO.setDeveloper_id(Integer.parseInt(req.getParameter("developerID")));
-        String result = developerService.delete(developerDTO);
-        req.setAttribute("result", result);
+        if (developerService.getById(Integer.parseInt(req.getParameter("developerID")))!=null){
+            DeveloperDTO developerDTO = new DeveloperDTO();
+            developerDTO.setDeveloper_id(Integer.parseInt(req.getParameter("developerID")));
+            String result = developerService.delete(developerDTO);
+            req.setAttribute("result", result);
+        } else {
+            req.setAttribute("result", "An error has occurred, please resend the request");
+        }
         req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
     }
 }

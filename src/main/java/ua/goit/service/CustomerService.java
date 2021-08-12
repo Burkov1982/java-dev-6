@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.goit.service.Converter.fromCustomer;
-import static ua.goit.service.Converter.toCustomer;
+import static ua.goit.config.Converter.fromCustomer;
+import static ua.goit.config.Converter.toCustomer;
 
 public class CustomerService implements Service<CustomerDTO>{
     private final Util util = new Util();
@@ -69,9 +69,8 @@ public class CustomerService implements Service<CustomerDTO>{
 
     @Override
     public List<CustomerDTO> getAll() {
-        List<Customer> customers = null;
         try {
-            customers = customerDAO.getAll();
+            List<Customer> customers = customerDAO.getAll();
             List<CustomerDTO> customersDTO = new ArrayList<>();
             for (Customer customer:customers) {
                 customersDTO.add(fromCustomer(customer));

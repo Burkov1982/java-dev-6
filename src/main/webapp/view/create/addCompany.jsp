@@ -45,8 +45,8 @@ input[type=submit]:hover {
 	<div class="w3-container">
 
       <form action="/addCompany" method="POST">
-        <input type="text" id="companyName" name="companyName" placeholder="Enter company name">
-        <input type="text" id="headquarters" name="headquarters" placeholder="Enter headquarters">
+        <input type="text" id="companyName" name="companyName" required="" placeholder="Enter company name">
+        <input type="text" id="headquarters" name="headquarters" required="" placeholder="Enter headquarters">
         <input type="submit" value="Submit">
       </form>
 	</div>

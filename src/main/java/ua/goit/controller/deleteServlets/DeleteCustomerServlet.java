@@ -20,10 +20,14 @@ public class DeleteCustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setCustomer_id(Integer.parseInt(req.getParameter("customerID")));
-        String result = service.delete(customerDTO);
-        req.setAttribute("result", result);
+        if (service.getById(Integer.parseInt(req.getParameter("customerID")))!=null){
+            CustomerDTO customerDTO = new CustomerDTO();
+            customerDTO.setCustomer_id(Integer.parseInt(req.getParameter("customerID")));
+            String result = service.delete(customerDTO);
+            req.setAttribute("result", result);
+        } else {
+            req.setAttribute("result", "An error has occurred, please resend the request");
+        }
         req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
     }
 }

@@ -2,7 +2,6 @@ package ua.goit.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import ua.goit.service.PropertiesLoader;
 
 import java.util.Objects;
 

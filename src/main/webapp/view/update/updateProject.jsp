@@ -42,10 +42,10 @@ input[type=submit]:hover {
       <h1>Home page of JAVA DEVELOPER #6</h1>
     </div>
 <form action="/updateProject" method="POST">
-  <input type="number" id="projectId" name="projectId" placeholder="Enter project id">  
-  <input type="text" id="projectName" name="projectName" placeholder="Enter project name">
-  <input type="text" id="projectDescription" name="projectDescription" placeholder="Enter project description">
-  <input type="number" id="projectCost" name="projectCost" placeholder="Enter project cost">
+  <input type="number" id="projectId" name="projectId" required="" placeholder="Enter project id">
+  <input type="text" id="projectName" name="projectName" required="" placeholder="Enter project name">
+  <input type="text" id="projectDescription" name="projectDescription" required="" placeholder="Enter project description">
+  <input type="number" id="projectCost" name="projectCost" required="" placeholder="Enter project cost">
   <input type="submit" value="Submit">
 </form>
 

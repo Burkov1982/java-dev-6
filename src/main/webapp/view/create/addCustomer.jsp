@@ -45,7 +45,7 @@ input[type=submit]:hover {
 	<div class="w3-container">
 
       <form action="/addCustomer" method="POST">
-        <input type="text" id="customerName" name="customerName" placeholder="Enter customer name">
+        <input type="text" id="customerName" name="customerName" required="" placeholder="Enter customer name">
         <input type="submit" value="Submit">
       </form>
 	</div>

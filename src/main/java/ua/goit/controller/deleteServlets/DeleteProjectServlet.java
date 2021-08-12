@@ -23,10 +23,14 @@ public class DeleteProjectServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setProject_id(Integer.parseInt(req.getParameter("projectID")));
-        String result = service.delete(projectDTO);
-        req.setAttribute("result", result);
+        if (service.getById(Integer.parseInt(req.getParameter("projectID")))!=null){
+            ProjectDTO projectDTO = new ProjectDTO();
+            projectDTO.setProject_id(Integer.parseInt(req.getParameter("projectID")));
+            String result = service.delete(projectDTO);
+            req.setAttribute("result", result);
+        } else {
+            req.setAttribute("result", "An error has occurred, please resend the request");
+        }
         req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
     }
 }

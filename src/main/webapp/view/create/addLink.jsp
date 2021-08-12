@@ -50,11 +50,11 @@ input[type=submit]:hover {
             <option value="project_developers">Project-Developers</option>
             <option value="developer_skills">Developer-Skills</option>
         </select>
-        <input type="number" id="projectId" name="projectId" placeholder="Enter project ID">
-        <input type="number" id="customerId" name="customerId" placeholder="Enter customer ID">
-        <input type="number" id="developerId" name="developerId" placeholder="Enter developer ID">
-        <input type="number" id="companyId" name="companyId" placeholder="Enter company ID">
-        <input type="number" id="skillId" name="skillId" placeholder="Enter skill ID">
+        <input type="number" id="projectId" name="projectId" required="" placeholder="Enter project ID">
+        <input type="number" id="customerId" name="customerId"  required="" placeholder="Enter customer ID">
+        <input type="number" id="developerId" name="developerId" required="" placeholder="Enter developer ID">
+        <input type="number" id="companyId" name="companyId" required="" placeholder="Enter company ID">
+        <input type="number" id="skillId" name="skillId" required="" placeholder="Enter skill ID">
         <input type="submit" value="Submit">
       </form>
 	</div>

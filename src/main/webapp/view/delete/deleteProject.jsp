@@ -42,7 +42,7 @@ input[type=submit]:hover {
       <h1>Home page of JAVA DEVELOPER #6</h1>
     </div>
 <form action="/deleteProject" method="POST">
-  <input type="number" id="projectID" name="projectID" placeholder="Enter project ID">
+  <input type="number" id="projectID" name="projectID" required="" placeholder="Enter project ID">
   <input type="submit" value="Submit">
 </form>
 

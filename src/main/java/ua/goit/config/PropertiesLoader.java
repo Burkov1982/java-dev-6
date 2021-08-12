@@ -1,4 +1,4 @@
-package ua.goit.service;
+package ua.goit.config;
 
 import java.io.IOException;
 import java.io.InputStream;

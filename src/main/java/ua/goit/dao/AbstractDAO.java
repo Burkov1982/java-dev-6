@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.goit.service.Converter.toLink;
+import static ua.goit.config.Converter.toLink;
 
 public abstract class AbstractDAO<T> implements DataAccessObject<T> {
     private static final HikariDataSource dataSource = DatabaseConnectionManager.getDataSource();

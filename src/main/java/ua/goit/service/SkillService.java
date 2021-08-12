@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.goit.service.Converter.fromSkill;
-import static ua.goit.service.Converter.toSkill;
+import static ua.goit.config.Converter.fromSkill;
+import static ua.goit.config.Converter.toSkill;
 
 public class SkillService implements Service<SkillDTO>{
     private final SkillDAO skillDAO = new SkillDAO();

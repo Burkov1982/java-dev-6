@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.goit.service.Converter.fromProject;
-import static ua.goit.service.Converter.toProject;
+import static ua.goit.config.Converter.fromProject;
+import static ua.goit.config.Converter.toProject;
 
 public class ProjectService implements Service<ProjectDTO>{
     private final ProjectDAO projectDAO = new ProjectDAO();

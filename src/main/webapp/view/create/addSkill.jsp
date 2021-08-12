@@ -45,7 +45,7 @@ input[type=submit]:hover {
 	<div class="w3-container">
 
       <form action="/addSkill" method="POST">
-        <input type="text" id="branch" name="branch" placeholder="Enter branch">
+        <input type="text" id="branch" name="branch" required="" placeholder="Enter branch">
         <select id="stage" name="stage">
           <option value="Junior">Junior</option>
           <option value="Middle">Middle</option>

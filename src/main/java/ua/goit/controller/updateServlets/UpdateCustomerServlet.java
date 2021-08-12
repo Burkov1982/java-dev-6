@@ -20,11 +20,15 @@ public class UpdateCustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setCustomer_id(Integer.parseInt(req.getParameter("customerId")));
-        customerDTO.setCustomer_name(req.getParameter("customerName"));
-        CustomerDTO customerDTO1 = service.update(customerDTO);
-        req.setAttribute("result", customerDTO1);
+        if (service.getById(Integer.parseInt(req.getParameter("customerId")))!=null){
+            CustomerDTO customerDTO = new CustomerDTO();
+            customerDTO.setCustomer_id(Integer.parseInt(req.getParameter("customerId")));
+            customerDTO.setCustomer_name(req.getParameter("customerName"));
+            CustomerDTO customerDTO1 = service.update(customerDTO);
+            req.setAttribute("result", customerDTO1);
+        } else {
+            req.setAttribute("result", "An error has occurred, please resend the request");
+        }
         req.getRequestDispatcher("/view/print/printCustomer.jsp").forward(req, resp);
     }
 }

@@ -23,17 +23,21 @@ public class UpdateProjectServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setProject_id(Integer.parseInt(req.getParameter("projectId")));
-        projectDTO.setProject_name(req.getParameter("projectName"));
-        projectDTO.setProject_description(req.getParameter("projectDescription"));
-        try {
-            projectDTO.setCost(Integer.parseInt(req.getParameter("projectCost")));
-        } catch (NumberFormatException e){
-            e.printStackTrace();
+        if (service.getById(Integer.parseInt(req.getParameter("projectId")))!=null){
+            ProjectDTO projectDTO = new ProjectDTO();
+            projectDTO.setProject_id(Integer.parseInt(req.getParameter("projectId")));
+            projectDTO.setProject_name(req.getParameter("projectName"));
+            projectDTO.setProject_description(req.getParameter("projectDescription"));
+            try {
+                projectDTO.setCost(Integer.parseInt(req.getParameter("projectCost")));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            ProjectDTO project = service.update(projectDTO);
+            req.setAttribute("result", project);
+        } else {
+            req.setAttribute("result", "An error has occurred, please resend the request");
         }
-        ProjectDTO project = service.update(projectDTO);
-        req.setAttribute("result", project);
         req.getRequestDispatcher("/view/print/printProject.jsp").forward(req, resp);
     }
 }

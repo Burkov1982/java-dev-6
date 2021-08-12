@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.goit.service.Converter.fromCompany;
-import static ua.goit.service.Converter.toCompany;
+import static ua.goit.config.Converter.fromCompany;
+import static ua.goit.config.Converter.toCompany;
 
 public class CompanyService implements Service<CompanyDTO> {
     private final Util util = new Util();

@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.goit.service.Converter.fromDeveloper;
-import static ua.goit.service.Converter.toDeveloper;
+import static ua.goit.config.Converter.fromDeveloper;
+import static ua.goit.config.Converter.toDeveloper;
 
 public class DeveloperService implements Service<DeveloperDTO>{
     private final DeveloperDAO developerDAO = new DeveloperDAO();

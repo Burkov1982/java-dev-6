@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.goit.service.Converter.fromLink;
+import static ua.goit.config.Converter.fromLink;
 
 public class LinkService implements Service<LinkDTO> {
     private final Util util = new Util();

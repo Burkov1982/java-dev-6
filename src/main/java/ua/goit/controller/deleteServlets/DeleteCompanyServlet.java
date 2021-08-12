@@ -21,10 +21,14 @@ public class DeleteCompanyServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CompanyDTO companyDTO = new CompanyDTO();
-        companyDTO.setCompany_id(Integer.parseInt(req.getParameter("companyID")));
-        String result = service.delete(companyDTO);
-        req.setAttribute("result", result);
+        if (service.getById(Integer.parseInt(req.getParameter("companyID")))!=null){
+            CompanyDTO companyDTO = new CompanyDTO();
+            companyDTO.setCompany_id(Integer.parseInt(req.getParameter("companyID")));
+            String result = service.delete(companyDTO);
+            req.setAttribute("result", result);
+        } else {
+            req.setAttribute("result", "An error has occurred, please resend the request");
+        }
         req.getRequestDispatcher("/view/print/printMessage.jsp").forward(req, resp);
     }
 }

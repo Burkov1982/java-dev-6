@@ -21,12 +21,16 @@ public class UpdateCompanyServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CompanyDTO dto = new CompanyDTO();
-        dto.setCompany_id(Integer.parseInt(req.getParameter("companyId")));
-        dto.setCompany_name(req.getParameter("companyName"));
-        dto.setHeadquarters(req.getParameter("headquarters"));
-        CompanyDTO companyDTO = service.update(dto);
-        req.setAttribute("result", companyDTO);
+        if (service.getById(Integer.parseInt(req.getParameter("companyId")))!=null){
+            CompanyDTO dto = new CompanyDTO();
+            dto.setCompany_id(Integer.parseInt(req.getParameter("companyId")));
+            dto.setCompany_name(req.getParameter("companyName"));
+            dto.setHeadquarters(req.getParameter("headquarters"));
+            CompanyDTO companyDTO = service.update(dto);
+            req.setAttribute("result", companyDTO);
+        } else {
+            req.setAttribute("result", "An error has occurred, please resend the request");
+        }
         req.getRequestDispatcher("/view/print/printCompany.jsp").forward(req, resp);
     }
 }

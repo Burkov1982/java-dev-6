@@ -1,4 +1,4 @@
-package ua.goit.service;
+package ua.goit.config;
 
 import ua.goit.dao.model.*;
 import ua.goit.dto.*;

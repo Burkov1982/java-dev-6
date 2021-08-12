@@ -45,9 +45,9 @@ input[type=submit]:hover {
 	<div class="w3-container">
 
       <form action="/updateCompany" method="POST">
-        <input type="number" id="companyId" name="companyId" placeholder="Enter company ID">
-        <input type="text" id="companyName" name="companyName" placeholder="Enter company name">
-        <input type="text" id="headquarters" name="headquarters" placeholder="Enter headquarters">
+        <input type="number" id="companyId" name="companyId" required="" placeholder="Enter company ID">
+        <input type="text" id="companyName" name="companyName" required="" placeholder="Enter company name">
+        <input type="text" id="headquarters" name="headquarters" required="" placeholder="Enter headquarters">
         <input type="submit" value="Submit">
       </form>
 	</div>
